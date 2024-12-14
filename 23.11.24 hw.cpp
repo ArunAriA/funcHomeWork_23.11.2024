@@ -1,4 +1,7 @@
 ﻿#include <iostream>
+#include <algorithm>
+#include <vector>
+#include  <cstdarg>
 
 using namespace std;
 
@@ -250,8 +253,39 @@ using namespace std;
 
 //№5
 //Створіть функцію з необмеженою кількістю параметрів для об'єднання масивів у один. 
+
+vector <int> Union(int countArr, ...)
+{
+	vector<int> result;
+	
+	va_list arg;
+	va_start(arg, countArr);
+
+	for (int i = 0; i < countArr; i++)
+	{
+		vector<int> currentArray = va_arg(arg, vector<int>);
+		result.insert(result.end(), currentArray.begin(), currentArray.end());
+	}
+
+	va_end(arg);
+
+	return result;
+}
+
 int main()
 { 
+	srand(time(NULL));
+
+	vector<int> arr1 = { 1, 2, 3 };
+	vector<int> arr2 = { 4, 5, 6 };
+	vector<int> arr3 = { 7, 8, 9 };
+
+	vector<int> allArr = Union(3, arr1, arr2, arr3);
+
+	for (int i : allArr)
+	{
+		cout << i << ' ';
+	}
 
 }
 
